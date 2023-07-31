@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href=".\static\base.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('index') }}">Index</a>
+                <a href="{{ url_for('showForm') }}">Form</a>
+                <a href="{{ url_for('showList') }}">List of coordinates</a>
+            </nav>
+        </header>
+    
+        <section class="content">
+           {% block content %}{% endblock %}
+        </section>
+    
+        <footer>
+    
+        </footer>
+    </div>
+</body>
+</html>

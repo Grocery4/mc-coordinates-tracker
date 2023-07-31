@@ -1,0 +1,8 @@
+# ignore local venv
+# requirements will be specified in README file
+__pycache__/
+Include/
+Lib/
+Scripts/
+
+.config
