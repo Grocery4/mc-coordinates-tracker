@@ -6,7 +6,9 @@ from sqlalchemy.exc import IntegrityError
 # TODO add date of entry to table
 # TODO add dimensions
 # TODO add sessions / user identification
+# TODO add admin accounts
 # TODO add possibility to show/hide coordinates
+# TODO display current server seed
 # !BUG entry will go in even if one entry of coordinates is empty:
 # !BUG str will result as "int int '' "
 # !BUG same thing happens if name is empty
