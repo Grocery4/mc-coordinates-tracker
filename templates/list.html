@@ -1,0 +1,52 @@
+{% extends 'base.html'  %}
+
+{% block title %}
+List of coordinates
+{% endblock %}
+
+{% block content %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: #ddd solid;
+            border-width: 1px 0;        
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        tr { 
+            border: #ddd solid;
+            border-width: 1px 0;
+        }
+    </style>
+
+    <h1>Coordinate list</h1>
+    <p>If 2 coordinates are inserted, y is omitted.</p>
+    
+    {% for msg in get_flashed_messages(category_filter='error') %}
+        <p class="error">{{msg}}</p>
+    {% endfor %}
+    
+    <form action="/coord-list/delete/" method="post">
+        <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Location name</th>
+                    <th>Coordinates</th>
+                    <th>Remove coordinate</th>
+                </tr>
+                    
+            {% for coord in coordinate_list %}
+                <tr>
+                    <td>{{coord.id}}</td>
+                    <td>{{ coord.description }}</td>
+                    <td>{{ coord.coords }}</td>
+                    <td><button type="submit" name="clicked_btn" value="{{coord.id}}">Delete</button></td>
+                </tr>    
+            {% endfor %}
+            </table>
+    </form>
+{% endblock %}

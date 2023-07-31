@@ -1,0 +1,47 @@
+html, body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+
+    display: flex;
+    flex-flow: column wrap;
+
+    height: 100vh;
+}
+
+
+
+header, footer {
+    background-color: gray;
+}
+
+header{
+    flex-grow: 2;
+
+    display: flex;
+
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+nav > a {
+    text-decoration: none;
+    color: wheat;
+    margin: 20px;
+}
+
+section {
+    flex-grow: 3;
+}
+
+footer {
+    flex-grow: 1;
+}
+
+.error {
+    color: red;
+}

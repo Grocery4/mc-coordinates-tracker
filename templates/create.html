@@ -1,0 +1,35 @@
+{% extends 'base.html'  %}
+
+{% block title %}
+Form
+{% endblock %}
+
+{% block content %}
+
+    {% for msg in get_flashed_messages(category_filter='error') %}
+        <p class="error">{{msg}}</p>
+    {% endfor %}
+
+<h1>Form</h1>
+<form action="/submit_coordinates" method="post">
+    <label for="coords-info">Location name:</label>
+    <input type="text" name="coords-info" cols="40" rows="10"></input>
+    <br>
+    <br>
+
+    <label for="coord-x">x:</label>
+    <input type="number" name="coord-x">
+    <br>
+
+    <label for="coord-y">y:</label>
+    <input type="number" name="coord-y">
+    <br>
+
+    <label for="coord-z">z:</label>
+    <input type="number" name="coord-z">
+    <br>
+    <br>
+    <button type="submit">Submit</button>  
+    <h2>{{ButtonPressed}}</h2> 
+</form>
+{% endblock %}
