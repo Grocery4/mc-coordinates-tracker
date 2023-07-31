@@ -1,9 +1,9 @@
-# Welcome to Grocery4's Minecraft Coordinate tracker!
+## Welcome to Grocery4's Minecraft Coordinate tracker!
 This is my first ever almost-seriously developed web-app, created in Python using the Flask framework!
 For this very reason I invite you to keep in mind that most features will surely be very primitive and often
 very buggy.
 
-# With that being said, here are the main features and usage:
+## With that being said, here are the main features and usage:
 
 ### 1. Basic form application to insert the location of interest and coordinates.
 Usually the Y coordinate is omitted, but currently there's no check to determine if X and Y coordinates
@@ -15,7 +15,7 @@ no way to hide/unhide coordinates, and every player can delete eachother's coord
 This application was made to be used among friends; nonetheless, I'm working on giving a choice
 wether to display publicly or privately every coordinate.
 
-# Work in progress:
+## Work in progress:
 
 ### 1. Login | Register
 To identify who inserted what, an account must be made, guests won't be able to add nor remove anything.
