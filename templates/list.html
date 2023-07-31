@@ -34,6 +34,7 @@ List of coordinates
         <table>
                 <tr>
                     <th>ID</th>
+                    <th>Date</th>
                     <th>Location name</th>
                     <th>Coordinates</th>
                     <th>Remove coordinate</th>
@@ -42,6 +43,7 @@ List of coordinates
             {% for coord in coordinate_list %}
                 <tr>
                     <td>{{coord.id}}</td>
+                    <td>{{coord.date}}</td>
                     <td>{{ coord.description }}</td>
                     <td>{{ coord.coords }}</td>
                     <td><button type="submit" name="clicked_btn" value="{{coord.id}}">Delete</button></td>

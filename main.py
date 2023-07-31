@@ -2,8 +2,8 @@ import os
 from flask import Flask, render_template, request, url_for, flash, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
+from datetime import datetime
 
-# TODO add date of entry to table
 # TODO add dimensions
 # TODO add sessions / user identification
 # TODO add admin accounts
@@ -52,6 +52,7 @@ class Coordinates(db.Model):
     __tablename__ = 'coords_table'
 
     id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
     coords = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(2048), nullable=False, unique=True)
 
@@ -93,9 +94,9 @@ def submitForm():
     # check if coords have been inserted, skip if any of them is not correct
     coords = Coordinate(x_coord, y_coord, z_coord)
     desc = request.form.get('coords-info')
-
+    curr_date = datetime.now()
     if(coords.returnAsString().isspace() == False and desc.isspace() == False):
-        entry = Coordinates(coords=str(coords.returnAsString()), description=str(desc))
+        entry = Coordinates(coords=str(coords.returnAsString()), date=curr_date, description=str(desc))
         db.session.add(entry)
 
         try:
