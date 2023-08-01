@@ -88,60 +88,72 @@ def showForm():
    
 @app.route('/submit_coordinates', methods=['GET','POST'])
 def submitForm():
-    loc_name = request.form.get('coords-info')
-    
-    x_coord = request.form.get('coord-x')
-    y_coord = request.form.get('coord-y')
-    z_coord = request.form.get('coord-z')
+    if request.method == "POST":
 
-    dim = request.form.get('dim')
+        loc_name = request.form.get('coords-info')
+        
+        x_coord = request.form.get('coord-x')
+        y_coord = request.form.get('coord-y')
+        z_coord = request.form.get('coord-z')
 
-    # check if coords have been inserted, skip if any of them is not correct
-    coords = Coordinate(x_coord, y_coord, z_coord)
-    curr_date = datetime.now()
-    if(coords.returnAsString().isspace() == False and loc_name.isspace() == False):
-        entry = Coordinates(
-                                        coords=str(coords.returnAsString()), 
-                                        date=curr_date, 
-                                        dimension=dim, 
-                                        description=str(loc_name))
-        db.session.add(entry)
+        dim = request.form.get('dim')
 
-        try:
-            db.session.commit()
-        except IntegrityError:
+        # check if coords have been inserted, skip if any of them is not correct
+        coords = Coordinate(x_coord, y_coord, z_coord)
+        curr_date = datetime.now()
+        if(coords.returnAsString().isspace() == False and loc_name.isspace() == False):
+            entry = Coordinates(
+                                            coords=str(coords.returnAsString()), 
+                                            date=curr_date, 
+                                            dimension=dim, 
+                                            description=str(loc_name))
+            db.session.add(entry)
+
+            try:
+                db.session.commit()
+            except IntegrityError:
+                print("Error!")
+                flash("Entry failed! It probably exists in database already!", 'error')
+                db.session.rollback()
+        else:
             print("Error!")
-            flash("Entry failed! It probably exists in database already!", 'error')
-            db.session.rollback()
-    else:
-        print("Error!")
-        flash("Entry not inserted! Check if values are not null!", 'error')
+            flash("Entry not inserted! Check if values are not null!", 'error')
 
     return render_template('create.html')
 
 # TODO check if table exists before getting coord_list
-@app.route('/coord-list')
+@app.route('/coord-list/', methods = ['GET', 'POST'])
 def showList():
-    coord_list = Coordinates.query.all()
+    dimension = "All"
+    if(request.method == "POST"):
+        dimension = request.form.get('dim')
+
+    if (dimension != "All"):
+        coord_list = Coordinates.query.filter_by(dimension = dimension)
+    else:
+        coord_list = Coordinates.query.all()
+
+
     if (not coord_list):
         flash('Empty list!', 'error')
 
-    return render_template('list.html', coordinate_list = coord_list)
+    return render_template('list.html', coordinate_list = coord_list, dim = dimension)    
 
 @app.route('/coord-list/delete/', methods=['GET', 'POST'])
 def deleteEntry():
-    ID_to_remove = request.form.get('clicked_btn')
-    Coordinates.query.filter_by(id=ID_to_remove).delete()
+    if request.method == "POST":
+        ID_to_remove = request.form.get('clicked_btn')
+        Coordinates.query.filter_by(id=ID_to_remove).delete()
     
-    try:
-        db.session.commit()
-    except IntegrityError:
-        print("Error!")
-        flash("Deletion failed!")
-        db.session.rollback()
-    else:
-        print("Error!")
-        flash("Deletion failed!")
+        try:
+            db.session.commit()
+        except IntegrityError:
+            print("Error!")
+            flash("Deletion failed!")
+            db.session.rollback()
+        else:
+            print("Error!")
+            flash("Deletion failed!")
 
     return redirect(url_for(('showList')))
 

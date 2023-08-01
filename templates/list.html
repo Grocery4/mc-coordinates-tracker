@@ -23,8 +23,18 @@ List of coordinates
         }
     </style>
 
-    <h1>Coordinate list</h1>
+    <h1>{{dim}}</h1>
     <p>If 2 coordinates are inserted, y is omitted.</p>
+    <form method="post">
+        <select name="dim">
+            <option value="All">All dimensions</option>
+            <option value="Overworld">Overworld</option>
+            <option value="Nether">Nether</option>
+            <option value="End">End</option>
+        </select>
+
+        <button type="submit">Load</button>  
+    </form>
     
     {% for msg in get_flashed_messages(category_filter='error') %}
         <p class="error">{{msg}}</p>
