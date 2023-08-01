@@ -87,16 +87,19 @@ def showForm():
    
 @app.route('/submit_coordinates', methods=['GET','POST'])
 def submitForm():
+    loc_name = request.form.get('coords-info')
+    
     x_coord = request.form.get('coord-x')
     y_coord = request.form.get('coord-y')
     z_coord = request.form.get('coord-z')
 
+    dim = request.form.get('dim')
+
     # check if coords have been inserted, skip if any of them is not correct
     coords = Coordinate(x_coord, y_coord, z_coord)
-    desc = request.form.get('coords-info')
     curr_date = datetime.now()
-    if(coords.returnAsString().isspace() == False and desc.isspace() == False):
-        entry = Coordinates(coords=str(coords.returnAsString()), date=curr_date, description=str(desc))
+    if(coords.returnAsString().isspace() == False and loc_name.isspace() == False):
+        entry = Coordinates(coords=str(coords.returnAsString()), date=curr_date, description=str(loc_name))
         db.session.add(entry)
 
         try:
