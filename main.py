@@ -53,6 +53,7 @@ class Coordinates(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date)
+    dimension = db.Column(db.String(100), nullable=False)
     coords = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(2048), nullable=False, unique=True)
 
@@ -99,7 +100,11 @@ def submitForm():
     coords = Coordinate(x_coord, y_coord, z_coord)
     curr_date = datetime.now()
     if(coords.returnAsString().isspace() == False and loc_name.isspace() == False):
-        entry = Coordinates(coords=str(coords.returnAsString()), date=curr_date, description=str(loc_name))
+        entry = Coordinates(
+                                        coords=str(coords.returnAsString()), 
+                                        date=curr_date, 
+                                        dimension=dim, 
+                                        description=str(loc_name))
         db.session.add(entry)
 
         try:
