@@ -20,6 +20,6 @@ wether to display publicly or privately every coordinate.
 ### 1. Login | Register
 To identify who inserted what, an account must be made, guests won't be able to add nor remove anything.
 
-### Public vs Private coordinates
+### 2. Public vs Private coordinates
 As cited before, I'm working on creating a system where the player is able to choose wether to show
 to anyone the coordinate set, or to make it private or visible only to certain players.
